@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tony.cliente.controller.ReproductorViewController">
+   <top>
+      <Label text="Prueba" BorderPane.alignment="CENTER" />
+   </top>
+   <left>
+      <JFXButton fx:id="jfxBtnAnt" onAction="#onActionJfxBtnAnt" styleClass="jfx-PrevNextbutton" text="Ant" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <JFXButton fx:id="jfxBtnSig" onAction="#onActionJfxBtnSig" styleClass="jfx-PrevNextbutton" text="Sig" BorderPane.alignment="CENTER" />
+   </right>
+   <padding>
+      <Insets left="5.0" right="5.0" />
+   </padding>
+   <center>
+      <HBox fx:id="rootVideo" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

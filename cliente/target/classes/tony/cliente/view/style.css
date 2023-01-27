@@ -1,0 +1,24 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 24 ene. 2023, 16:53:53
+    Author     : ANTHONY
+*/
+
+.jfx-PrevNextbutton{
+    -fx-font: normal 20px 'serif' ;
+    
+    -fx-min-width: 60px;
+    -fx-max-width: 50px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    
+    -fx-border-radius: 25px;
+    -fx-border-width: 20px;
+    -fx-margin: 25px;
+    
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #3d768a;
+}
