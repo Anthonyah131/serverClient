@@ -16,21 +16,17 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import tony.cliente.Cliente;
 
 /**
  * FXML Controller class
@@ -53,6 +49,7 @@ public class ReproductorViewController extends Controller implements Initializab
     private static Socket clientSocket;
     private static InputStream in;
     private static OutputStream out;
+    String serverIP;
     boolean inputShutdown = false;
     MediaView mediaview = new MediaView();
 
@@ -62,23 +59,19 @@ public class ReproductorViewController extends Controller implements Initializab
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            // Pide la dirección IP del servidor
-//            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//            System.out.print("Ingresa la dirección IP del servidor: ");
-//            String serverIP = br.readLine();
+           // Pide la dirección IP del servidor
+           BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+           System.out.print("Ingresa la dirección IP del servidor: ");
+           serverIP = br.readLine();
 
-            // Recibe el video
-            clientSocket = new Socket("192.168.56.1", 10000);
+            clientSocket = new Socket(serverIP, 3000);
             in = clientSocket.getInputStream();
             out = clientSocket.getOutputStream();
 
-            // Espera por una acción del usuario para pasar al siguiente video o volver al anterior
-            // BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
             String inputString = "now";
             InputStream inputStream = new ByteArrayInputStream(inputString.getBytes());
             BufferedReader input = new BufferedReader(new InputStreamReader(inputStream));
 
-            // System.out.println("Ingresa 'next' para pasar al siguiente video o 'prev' para volver al anterior:");
             String signal = input.readLine();
             out.write(signal.getBytes());
 //            if (!inputShutdown) {
@@ -101,10 +94,6 @@ public class ReproductorViewController extends Controller implements Initializab
 //                inputShutdown = true;
 //            }
 
-            // reproduce el video
-            // String mediaFile = "video.mp4";
-            // String[] cmd = { "cmd", "/c", "start", mediaFile };
-            // Runtime.getRuntime().exec(cmd);
             media = new Media(new File("video.mp4").toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaview = new MediaView(mediaPlayer);
@@ -136,8 +125,7 @@ public class ReproductorViewController extends Controller implements Initializab
 
     @FXML
     private void onActionJfxBtnAnt(ActionEvent event) throws IOException {
-        // Recibe el video
-        clientSocket = new Socket("192.168.56.1", 10000);
+        clientSocket = new Socket(serverIP, 3000);
         in = clientSocket.getInputStream();
         out = clientSocket.getOutputStream();
 
@@ -147,7 +135,6 @@ public class ReproductorViewController extends Controller implements Initializab
         InputStream inputStream = new ByteArrayInputStream(inputString.getBytes());
         BufferedReader input = new BufferedReader(new InputStreamReader(inputStream));
 
-        // System.out.println("Ingresa 'next' para pasar al siguiente video o 'prev' para volver al anterior:");
         String signal = input.readLine();
         out.write(signal.getBytes());
 
@@ -161,8 +148,7 @@ public class ReproductorViewController extends Controller implements Initializab
 
     @FXML
     private void onActionJfxBtnSig(ActionEvent event) throws IOException {
-        // Recibe el video
-        clientSocket = new Socket("192.168.56.1", 10000);
+        clientSocket = new Socket(serverIP, 3000);
         in = clientSocket.getInputStream();
         out = clientSocket.getOutputStream();
 
@@ -172,7 +158,6 @@ public class ReproductorViewController extends Controller implements Initializab
         InputStream inputStream = new ByteArrayInputStream(inputString.getBytes());
         BufferedReader input = new BufferedReader(new InputStreamReader(inputStream));
 
-        // System.out.println("Ingresa 'next' para pasar al siguiente video o 'prev' para volver al anterior:");
         String signal = input.readLine();
         out.write(signal.getBytes());
 
@@ -197,12 +182,8 @@ public class ReproductorViewController extends Controller implements Initializab
             buffer.writeTo(fos);
             fos.close();
 
-            // reproduce el video
-            // String mediaFile = "video.mp4";
-            // String[] cmd = { "cmd", "/c", "start", mediaFile };
             media = new Media(new File("video.mp4").toURI().toString());
             mediaPlayer = new MediaPlayer(media);
-            //mediaview = new MediaView(mediaPlayer);
             mediaview.setMediaPlayer(mediaPlayer);
             mediaview.setPreserveRatio(true);
             mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);

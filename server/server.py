@@ -1,11 +1,9 @@
 import socket
 import os
 
-# Obtiene la dirección IP de la PC servidor
 hostname = socket.gethostname()
 server_ip = socket.gethostbyname(hostname)
 
-# Crea una lista de videos
 video_list = [
     'vid-01.mp4',
     'vid-02.mp4',
@@ -20,15 +18,12 @@ video_list = [
 ]
 current_video = 0
 
-# Crea un socket TCP/IP
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# Enlaza el socket a la dirección IP y puerto
-server_address = (server_ip, 10000)
+server_address = (server_ip, 3000)
 print(f'Iniciando en {server_address[0]} puerto {server_address[1]}')
 sock.bind(server_address)
 
-# Escucha por conexiones entrantes
 sock.listen(1)
 
 def next_video():
@@ -44,7 +39,6 @@ def prev_video():
         current_video = len(video_list) - 1
 
 while True:
-    # Espera por una conexión
     print('Esperando por una conexión')
     connection, client_address = sock.accept()
     try:
@@ -69,6 +63,5 @@ while True:
         connection.sendall(video_data)
         #connection.shutdown(socket.SHUT_WR)
     finally:
-        # Cierra la conexión
         connection.close()
 
